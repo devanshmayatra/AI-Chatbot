@@ -1,13 +1,6 @@
 import 'dart:convert';
 
 class ChatMessage {
-  final String id;
-  final String userMessage;
-  final String aiResponse;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final int version;
-
   ChatMessage({
     required this.id,
     required this.userMessage,
@@ -37,8 +30,15 @@ class ChatMessage {
         "_id": id,
         "userMessage": userMessage,
         "aiResponse": aiResponse,
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
+        "createdAt": createdAt?.toIso8601String(),
+        "updatedAt": updatedAt?.toIso8601String(),
         "__v": version,
       };
+
+  final String id;
+  final String userMessage;
+  final String aiResponse;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final int version;
 }

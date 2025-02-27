@@ -53,7 +53,15 @@ class _ChatPageState extends State<ChatPage> {
                 ),
                 IconButton(
                   onPressed: () async {
-                    context.read<ChatViewModel>().getAllChats();
+                    if (promtController.text.isNotEmpty) {
+                      context.read<ChatViewModel>().chat(promtController.text);
+                      context.read<ChatViewModel>().getAllChats();
+                      context
+                          .read<ChatViewModel>()
+                          .addChat(promtController.text);
+                      promtController.clear();
+                      FocusScope.of(context).unfocus();
+                    }
                   },
                   icon: const Icon(Icons.send),
                 ),
