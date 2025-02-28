@@ -9,7 +9,6 @@ const getAIResponse = async (req, res) => {
     }
 
     const { conversationId, prompt } = req.body;
-    console.log("Received prompt:", prompt);
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
@@ -31,9 +30,6 @@ const getAIResponse = async (req, res) => {
     const data = await response.json();
     const aiResponse = data.choices?.[0]?.message?.content || "No response received";
 
-    console.log("AI Response:", aiResponse);
-
-    // ✅ Save chat history
     await saveChatHistory(prompt, aiResponse);
 
     const allChats = await ChatModel.find();
@@ -55,7 +51,6 @@ const saveChatHistory = async (userMessage, aiResponse) => {
     });
 
     await chatEntry.save();
-    console.log("Chat history saved successfully!");
   } catch (error) {
     console.error("Error saving chat history:", error.message);
   }
